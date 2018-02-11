@@ -1,0 +1,31 @@
+.app-window {
+    display: flex;
+    flex-flow: column;
+    height: stretch;
+}
+
+.app-title {
+    flex-grow: 1;
+}
+
+.app-toolbar-top {
+    height: 36px;
+    flex-direction: row;
+}
+
+.app-toolbar-stepgroup {
+    height: 60px;
+}
+
+.app-toolbar-bottom {
+    height: 72px;
+}
+
+.form-stepgroup {
+    flex-grow: 1;
+}
+
+.app-body {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
