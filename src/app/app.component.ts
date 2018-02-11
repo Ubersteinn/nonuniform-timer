@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { StepGroupModel, StepModel, Duration } from '../shared';
-import { RenameDialogComponent } from '../shared/component';
+import {
+  StepGroupModel, StepModel, Duration, RunnerService,
+  RenameDialogComponent
+} from '../shared';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,7 @@ export class AppComponent {
 
   public stepGroups: StepGroupModel[];
   public isEditing: boolean;
+  public runningIndex: number;
 
   private _displayDuration: string;
   private _activeStepGroup: StepGroupModel;
@@ -39,10 +42,14 @@ export class AppComponent {
     return this.stepGroups.indexOf(this.activeStepGroup);
   }
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public runner: RunnerService
+  ) {
     this.stepGroups = [];
     this.initStepGroups(5);
     this.isEditing = false;
+    this.runningIndex = 0;
   }
 
   public onEdit() {
@@ -96,6 +103,18 @@ export class AppComponent {
     this.activeStepGroup = this.stepGroups[0];
   }
 
+  public onStartStep() {
+    this.runner.run(this.activeStepGroup);
+  }
+
+  public onStopStep() {
+    this.runner.stop();
+  }
+
+  public onPauseStep() {
+    this.runner.pause();
+  }
+
   public onAddStep() {
     this.createStep();
     this.sumDurations();
@@ -117,16 +136,16 @@ export class AppComponent {
   private createStep(): StepModel {
     const step = new StepModel();
     this.activeStepGroup.steps.push(step);
-    step.duration = Duration.create(Math.round(Math.random() * 1000) * 15000 + 10000);
+    step.duration = Duration.create(Math.round(Math.random() * 10000));
     step.name += ' ' + this.activeStepGroup.steps.length;
     return step;
   }
 
   private initStepGroups(count: number) {
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i <= count; i++) {
       this.activeStepGroup = this.createStepGroup();
 
-      for (let j = 0; j < i * i; j++) {
+      for (let j = 0; j <= i * i; j++) {
         this.createStep();
       }
     }

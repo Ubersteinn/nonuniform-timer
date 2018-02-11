@@ -1,0 +1,8 @@
+.step {
+    display: flex;
+    flex-direction: row;
+}
+
+.step-name {
+    flex-grow: 1;
+}

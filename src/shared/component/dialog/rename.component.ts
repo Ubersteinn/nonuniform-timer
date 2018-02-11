@@ -6,7 +6,7 @@ import { Name } from '../../interface/name.interface';
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'rename-dialog',
-    templateUrl: 'rename.component.html',
+    templateUrl: './rename.component.html',
 })
 export class RenameDialogComponent {
 

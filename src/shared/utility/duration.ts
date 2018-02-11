@@ -73,10 +73,6 @@ export class Duration {
                     (time.hours   ? time.hours   * Duration.msInHour : 0);
         }
 
-        if (t._ms < 0) {
-            throw new Error('Duration cannot be less than zero');
-        }
-
         return t;
     }
 

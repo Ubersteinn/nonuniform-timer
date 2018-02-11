@@ -21,13 +21,16 @@ import { RunnerComponent } from './runner/runner.component';
 
 import {
   RenameDialogComponent,
-  DurationPipe
+  StepComponent,
+  DurationPipe,
+  RunnerService
 } from '../shared';
 
 @NgModule({
   declarations: [
     AppComponent,
     RenameDialogComponent,
+    StepComponent,
     RunnerComponent,
     DurationPipe
   ],
@@ -49,7 +52,9 @@ import {
     MatDialogModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [
+    RunnerService
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

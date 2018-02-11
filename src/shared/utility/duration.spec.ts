@@ -86,8 +86,4 @@ describe('Duration', () => {
             expect(duration.hours       ).toEqual(test.expect.h,  'h' );
         }));
     });
-
-    it('should throw negative exception', async(() => {
-        expect(() => Duration.create(-1)).toThrow(new Error('Duration cannot be less than zero'));
-    }));
 });

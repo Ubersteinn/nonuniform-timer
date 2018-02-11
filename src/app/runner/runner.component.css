@@ -1,13 +1,9 @@
 .steps-wrapper {
     flex-direction: column;
-    overflow-y: scroll;
 }
 
-.step {
-    display: flex;
-    flex-direction: row;
-}
-
-.step-name {
-    flex-grow: 1;
+.steps-wrapper > * {
+    margin-top: 3px;
+    padding: 5px 10px;
+    transition: height linear 250ms, font-size linear 250ms;
 }
