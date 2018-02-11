@@ -1,13 +1,37 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import {
+  MatToolbarModule,
+  MatMenuModule,
+  MatButtonModule,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatOptionModule,
+  MatInputModule,
+  MatDialogModule
+} from '@angular/material';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        ScrollDispatchModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatInputModule,
+        MatDialogModule
+      ],
     }).compileComponents();
   }));
+
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

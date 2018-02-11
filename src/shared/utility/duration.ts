@@ -5,17 +5,39 @@ export class Duration {
 
     private _ms: number;
 
-    public get milliseconds(): number {
+    /**
+     * Total representation of the duration in milliseconds
+     */
+    public get ms(): number {
         return this._ms;
     }
+
+    /**
+     * millisecond portion of the duration
+     */
+    public get milliseconds(): number {
+        return this._ms % Duration.msInSec;
+    }
+
+    /**
+     * second portion of the duration
+     */
     public get seconds(): number {
-        return this._ms / Duration.msInSec;
+        return Math.floor(this._ms / Duration.msInSec) % Duration.secInMin;
     }
+
+    /**
+     * minute portion of the duration
+     */
     public get minutes(): number {
-        return this._ms / Duration.msInMin;
+        return Math.floor(this._ms / Duration.msInMin) % Duration.minInHour;
     }
+
+    /**
+     * hour portion of the duration
+     */
     public get hours(): number {
-        return this._ms / Duration.msInHour;
+        return Math.floor(this._ms / Duration.msInHour);
     }
 
     static get msInSec(): number {   return 1000; }
@@ -49,6 +71,10 @@ export class Duration {
             t._ms = (time.seconds ? time.seconds * Duration.msInSec  : 0) +
                     (time.minutes ? time.minutes * Duration.msInMin  : 0) +
                     (time.hours   ? time.hours   * Duration.msInHour : 0);
+        }
+
+        if (t._ms < 0) {
+            throw new Error('Duration cannot be less than zero');
         }
 
         return t;
