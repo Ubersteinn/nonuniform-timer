@@ -1,0 +1,13 @@
+.steps-wrapper {
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.step {
+    display: flex;
+    flex-direction: row;
+}
+
+.step-name {
+    flex-grow: 1;
+}

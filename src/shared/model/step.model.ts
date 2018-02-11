@@ -1,7 +1,7 @@
 import { Duration } from '../utility/duration';
-import { Rename } from '../interface/rename.interface';
+import { Name } from '../interface/name.interface';
 
-export class StepModel implements Rename {
+export class StepModel implements Name {
 
     public name: string;
     public duration: Duration;

@@ -1,6 +1,6 @@
 .app-window {
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     height: stretch;
 }
 
@@ -9,23 +9,33 @@
 }
 
 .app-toolbar-top {
-    height: 36px;
+    flex: 0 1 auto;
+    min-height: 56px;
     flex-direction: row;
 }
 
 .app-toolbar-stepgroup {
-    height: 60px;
+    flex: 0 1 auto;
+    min-height: 56px;
 }
 
 .app-toolbar-bottom {
-    height: 72px;
+    flex: 0 1 auto;
+    min-height: 72px;
+    display: flex;
+    justify-content: center;
 }
 
 .form-stepgroup {
     flex-grow: 1;
 }
 
+.action-menu {
+    margin-right: -6px;
+    margin-left: 8px;
+}
+
 .app-body {
-    flex-grow: 1;
-    overflow-y: scroll;
+    flex: 1 1 auto;
+    overflow-y: auto;
 }

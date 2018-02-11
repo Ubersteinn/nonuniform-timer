@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { StepGroupModel } from '../shared';
+import { StepGroupModel, StepModel, Duration } from '../shared';
 import { RenameDialogComponent } from '../shared/component';
 
 @Component({
@@ -12,10 +12,27 @@ import { RenameDialogComponent } from '../shared/component';
 export class AppComponent {
 
   public stepGroups: StepGroupModel[];
-  public activeStepGroup: StepGroupModel;
   public isEditing: boolean;
 
-  public get activeIndex(): number {
+  private _totalDuration: string;
+  private _activeStepGroup: StepGroupModel;
+
+  public get activeStepGroup(): StepGroupModel {
+    return this._activeStepGroup;
+  }
+  public set activeStepGroup(sg: StepGroupModel) {
+    this._activeStepGroup = sg;
+    this.sumDurations();
+  }
+
+  public get totalDuration(): string {
+    if (this._totalDuration) {
+        return this._totalDuration;
+    }
+    return this.sumDurations();
+  }
+
+  private get activeIndex(): number {
     if (!this.activeStepGroup) {
       return -1;
     }
@@ -24,7 +41,7 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog) {
     this.stepGroups = [];
-    this.initStepGroups(3);
+    this.initStepGroups(5);
     this.isEditing = false;
   }
 
@@ -75,6 +92,18 @@ export class AppComponent {
     this.activeStepGroup = this.stepGroups[0];
   }
 
+  private sumDurations(): string {
+    let ms = 0;
+    if (this.activeStepGroup) {
+      this.activeStepGroup.steps.forEach(step => {
+        ms += step.duration.ms;
+      });
+    }
+    const d = Duration.create(ms);
+    this._totalDuration = d.hours + ':' + d.minutes + ':' + d.seconds;
+    return this._totalDuration;
+  }
+
   private createStepGroup(): StepGroupModel {
     const sg = new StepGroupModel();
     this.stepGroups.push(sg);
@@ -85,6 +114,13 @@ export class AppComponent {
   private initStepGroups(count: number) {
     for (let i = 0; i < count; i++) {
       this.createStepGroup();
+
+      for (let j = 0; j < i * i; j++) {
+        const step = new StepModel();
+        step.name += ' ' + j;
+        step.duration = Duration.create(Math.round(Math.random() * 1000) * 15000 + 10000);
+        this.stepGroups[i].steps.push(step);
+      }
     }
     this.activeStepGroup = this.stepGroups[0];
   }

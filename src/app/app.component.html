@@ -1,7 +1,7 @@
 <div class="app-window">
   <mat-toolbar class="app-toolbar-top"> 
     <div class="app-title">Non-uniform Timer</div>
-    <div *ngIf="isEditing">Editing</div>
+    <div>Total time {{ totalDuration }}</div>
   </mat-toolbar>
 
   <mat-toolbar class="app-toolbar-stepgroup">
@@ -12,7 +12,7 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-button [matMenuTriggerFor]="menu">Actions</button>
+    <button class="action-menu" mat-button [matMenuTriggerFor]="menu">Actions</button>
     <mat-menu #menu="matMenu">
       <button *ngIf="!isEditing" mat-menu-item (click)="onEdit()">Edit</button>
       <button *ngIf="!isEditing" mat-menu-item (click)="onCreateStepGroup()">New</button>
@@ -28,8 +28,9 @@
     
   </mat-toolbar>
 
-  <div class="app-body" cdkScrollable>
-      <div *ngFor="let stepGroup of stepGroups">{{stepGroup.name}}</div>
+  <div class="app-body">
+      <app-runner *ngIf="!isEditiong" [model]="activeStepGroup"></app-runner>
+      <!-- <app-editor *ngIf="isEditiong" [model]="activeStepGroup"></app-editor> -->
   </div>
 
   <mat-toolbar class="app-toolbar-bottom">
@@ -38,4 +39,5 @@
       <button mat-button>Start</button>
       <button mat-button>Stop</button>
   </mat-toolbar>
+
 </div>

@@ -12,17 +12,24 @@ import {
   MatFormFieldModule,
   MatOptionModule,
   MatInputModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { RunnerComponent } from './runner/runner.component';
 
-import { RenameDialogComponent } from '../shared/component';
+import {
+  RenameDialogComponent,
+  DurationPipe
+} from '../shared';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RenameDialogComponent
+    RenameDialogComponent,
+    RunnerComponent,
+    DurationPipe
   ],
   entryComponents: [
     RenameDialogComponent
@@ -39,7 +46,8 @@ import { RenameDialogComponent } from '../shared/component';
     MatSelectModule,
     MatOptionModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

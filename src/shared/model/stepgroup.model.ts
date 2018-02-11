@@ -1,7 +1,7 @@
 import { StepModel } from './step.model';
-import { Rename } from '../interface/rename.interface';
+import { Name } from '../interface/name.interface';
 
-export class StepGroupModel implements Rename {
+export class StepGroupModel implements Name {
 
     public name: string;
     public steps: StepModel[];

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { Rename } from '../../interface/rename.interface';
+import { Name } from '../../interface/name.interface';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -14,7 +14,7 @@ export class RenameDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<RenameDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Rename) {
+    @Inject(MAT_DIALOG_DATA) public data: Name) {
 
       this.name = data.name;
     }

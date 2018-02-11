@@ -1,0 +1,8 @@
+<div class="steps-wrapper" cdkScrollable>
+    <mat-card *ngFor="let step of model.steps">
+        <div class="step">
+            <div class="step-name">{{step.name}}</div>
+            <div>{{step.duration | duration}}</div>
+        </div>
+    </mat-card>
+</div>
