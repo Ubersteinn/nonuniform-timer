@@ -1,7 +1,7 @@
 <div class="app-window">
   <mat-toolbar class="app-toolbar-top"> 
     <div class="app-title">Non-uniform Timer</div>
-    <div>Total time {{ totalDuration }}</div>
+    <div>Total time {{ displayDuration }}</div>
   </mat-toolbar>
 
   <mat-toolbar class="app-toolbar-stepgroup">
@@ -18,6 +18,7 @@
       <button *ngIf="!isEditing" mat-menu-item (click)="onCreateStepGroup()">New</button>
       <button *ngIf="!isEditing" mat-menu-item (click)="onImportStepGroup()">Import</button>
       <button *ngIf="!isEditing" mat-menu-item (click)="onExportStepGroup()">Export</button>
+      <button *ngIf="!isEditing" mat-menu-item (click)="onCopyStepGroup()">Copy</button>
       <button *ngIf="isEditing" mat-menu-item (click)="onSaveEdit()">Save</button>
       <button mat-menu-item (click)="onRenameStepGroup()">Rename</button>
       <button *ngIf="!isEditing" mat-menu-item (click)="onDeleteStepGroup()">Delete</button>
@@ -28,16 +29,21 @@
     
   </mat-toolbar>
 
-  <div class="app-body">
-      <app-runner *ngIf="!isEditiong" [model]="activeStepGroup"></app-runner>
+  <div class="app-body" cdkScrollable>
+      <app-runner [model]="activeStepGroup"></app-runner>
       <!-- <app-editor *ngIf="isEditiong" [model]="activeStepGroup"></app-editor> -->
   </div>
 
   <mat-toolbar class="app-toolbar-bottom">
     
+    <div *ngIf="!isEditing">
       <button mat-button>Pause</button>
       <button mat-button>Start</button>
       <button mat-button>Stop</button>
+    </div>
+    <div *ngIf="isEditing">
+      <button mat-button (click)="onAddStep()">Add step</button>
+    </div>
   </mat-toolbar>
 
 </div>
