@@ -3,6 +3,7 @@ import { Injectable, EventEmitter, ApplicationRef } from '@angular/core';
 import { StepGroupModel } from '../model/stepgroup.model';
 import { StepModel } from '../model/step.model';
 import { Duration } from '../utility/duration';
+import { AudioService, AudioEvent } from './audio.service';
 
 @Injectable()
 export class RunnerService {
@@ -14,6 +15,8 @@ export class RunnerService {
 
   public runningStepIndex: number;
   public finish: EventEmitter<boolean>;
+  public stepEndingAlert: Duration;
+  public stepEndgingAlerted: boolean;
 
   private get runningStep(): StepModel {
     return this._stepGroup.steps[this.runningStepIndex];
@@ -43,15 +46,27 @@ export class RunnerService {
 
   public get stepRemaining(): Duration {
     const duration = Duration.create(this.runningStep.duration.ms - this.stepElapsedTime);
+
+    if (!this.stepEndgingAlerted && duration.ms - this.stepEndingAlert.ms < 0) {
+      this.stepEndgingAlerted = true;
+      this.audio.play(AudioEvent.stepEnding);
+    }
     if (duration.ms < 0) {
+      this.audio.play(AudioEvent.stepEnd);
       this.runningStepIndex++;
+      if (this.stepEndingAlert.ms < this.runningStep.duration.ms) {
+        this.stepEndgingAlerted = false;
+      }
       this._stepStartDate = Date.now();
       return Duration.create(0);
     }
     return duration;
   }
 
-  constructor(private ref: ApplicationRef) {
+  constructor(
+    private ref: ApplicationRef,
+    private audio: AudioService
+  ) {
 
     setInterval(() => {
       if (!this.isRunning) {
@@ -62,10 +77,13 @@ export class RunnerService {
 
       if (this.runningStepIndex >= this._stepGroup.steps.length) {
         this.stop(true);
+        this.audio.play(AudioEvent.stepGroupEnd);
       }
     }, 1000);
 
     this.runningStepIndex = 0;
+    this.stepEndingAlert = Duration.create(15000);
+    this.stepEndgingAlerted = false;
     this.finish = new EventEmitter<boolean>();
   }
 

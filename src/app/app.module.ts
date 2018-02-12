@@ -23,7 +23,8 @@ import {
   RenameDialogComponent,
   StepComponent,
   DurationPipe,
-  RunnerService
+  RunnerService,
+  AudioService
 } from '../shared';
 
 @NgModule({
@@ -53,6 +54,7 @@ import {
     MatCardModule
   ],
   providers: [
+    AudioService,
     RunnerService
   ],
   bootstrap: [ AppComponent ]

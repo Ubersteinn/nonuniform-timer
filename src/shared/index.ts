@@ -9,5 +9,6 @@ export * from './model/step.model';
 export * from './pipe/duration.pipe';
 
 export * from './service/runner.service';
+export * from './service/audio.service';
 
 export * from './utility/duration';

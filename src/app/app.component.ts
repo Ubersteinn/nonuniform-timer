@@ -142,6 +142,15 @@ export class AppComponent {
   }
 
   private initStepGroups(count: number) {
+
+    this.activeStepGroup = this.createStepGroup();
+    this.activeStepGroup.name = 'Ones for Ten';
+    for (let s = 0; s < 10; s++) {
+      const step = new StepModel();
+      step.duration = Duration.create(60000);
+      this.activeStepGroup.steps.push(step);
+    }
+
     for (let i = 0; i <= count; i++) {
       this.activeStepGroup = this.createStepGroup();
 
